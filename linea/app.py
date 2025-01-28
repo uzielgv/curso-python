@@ -1,9 +1,7 @@
 # Cálculo de coordenadas de líneas
 import argparse
-import matplotlib.pyplot as plt
 
 import funciones
-
 
 def main(m:float, b:float):
     '''
