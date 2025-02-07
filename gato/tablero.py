@@ -24,7 +24,6 @@ def ia(simbolos:dict):
 
 def usuario(dsimbolos:dict):
     ''' Juega el usuario'''
-    numeros = [str(i) for i in range(1, 10)]
     ocupado = True
     while ocupado == True:
         x = input('Ingresa el número de la casilla: ')
@@ -50,7 +49,7 @@ def juego(simbolos:dict):
         ['3', '5', '7']
     ]
     en_juego = True
-    ganador = ""
+    gana = None
     movimientos = 0
     dibuja_tablero(simbolos)
     while en_juego:
@@ -59,32 +58,38 @@ def juego(simbolos:dict):
             dibuja_tablero(simbolos)
             movimientos += 1
             gana = checa_winner(simbolos, lista_combinaciones)
-            if gana is True:
+            if gana is not None:
                 en_juego = False
-                ganador = "usuario/a"
+                continue
+            if movimientos >= 9:
+                en_juego = False
+                continue
             ia(simbolos)
             dibuja_tablero(simbolos)
             movimientos += 1
-            gana = checa_winner(simbolos, lista_combinaciones)
-            if gana is True:
+            if gana is not None:
                 en_juego = False
-                ganador = "computadora"
+                continue
             if movimientos >= 9:
                 en_juego = False
-        else:
-            en_juego = False
+                continue
+    return gana
 
 def checa_winner(simbolos:dict, combinaciones:list):
     '''Checa si hay un ganador'''
     for c in combinaciones:
         if simbolos[c[0]] == simbolos[c[1]] == simbolos[c[2]]:
             return simbolos[c[0]]
-        return None
+    return None
 
 if __name__ == '__main__':
     numeros = [str(i) for i in range(1, 10)]
     dsimbolos = {x:x for x in numeros}
-    juego(dsimbolos)
+    g = juego(dsimbolos)
+    if g is not None:
+        print(f"El ganador es {g}")
+    else:
+        print("Empate")
     '''dibuja_tablero(dsimbolos)
     ia(dsimbolos)
     dibuja_tablero(dsimbolos)
