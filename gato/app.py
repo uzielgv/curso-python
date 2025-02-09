@@ -20,6 +20,6 @@ def main(u:str):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('-u', type=str, help='Nombre del usuario', default=2.0)
+    parser.add_argument('-u', type=str, help='Nombre del usuario', default='Usuario')
     args = parser.parse_args()
     main(args.u)
