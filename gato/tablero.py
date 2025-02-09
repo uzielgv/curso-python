@@ -83,6 +83,35 @@ def checa_winner(simbolos:dict, combinaciones:list):
             return simbolos[c[0]]
     return None
 
+def actualiza_scores(score:dict, ganador:str, user:str):
+    '''Actualiza el score'''
+    X = score["X"]
+    O = score["O"]
+    if ganador is not None:
+        # print(f"El ganador es {ganador}")
+        if ganador == 'X':
+            print(f"¡{user} ganó esta ronda!")
+            X["G"] += 1
+            O["P"] += 1
+        elif ganador == 'O':
+            print("¡CPU ganó esta ronda!")
+            O["G"] += 1
+            X["P"] += 1
+        else:
+            X["E"] += 1
+            O["E"] += 1
+    else:
+        print("Empate")
+        X["E"] += 1
+        O["E"] += 1
+
+def despliega_tablero(score:dict, user:str):
+    '''Despliega el tablero de score'''
+    print(f'''
+    {user} (X) | G: {score["X"]["G"]} | P: {score["X"]["P"]} | E: {score["X"]["E"]}
+    CPU (O) | G: {score["O"]["G"]} | P: {score["O"]["P"]} | E: {score["O"]["E"]}
+    ''')
+
 if __name__ == '__main__':
     numeros = [str(i) for i in range(1, 10)]
     dsimbolos = {x:x for x in numeros}

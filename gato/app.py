@@ -18,7 +18,6 @@ def main(u:str):
         if seguir.lower() == 'n':
             corriendo = False
 
-
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('-u', type=str, help='Nombre del usuario', default=2.0)
