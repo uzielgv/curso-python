@@ -16,12 +16,48 @@ def dibuja_tablero(dsimbolos:dict):
 def ia(simbolos:dict):
     ''' Juega la máquina '''
     ocupado = True
+    combinaciones = [
+        ['1', '2', '3'],
+        ['4', '5', '6'],
+        ['7', '8', '9'],
+        ['1', '4', '7'],
+        ['2', '5', '8'],
+        ['3', '6', '9'],
+        ['1', '5', '9'],
+        ['3', '5', '7']
+    ]
     while ocupado is True:
-        x = random.choice(list(simbolos.keys()))
-        if simbolos[x] not in ['X', 'O']:
-            simbolos[x] = 'O'
-            ocupado = False
-
+        for c in combinaciones:
+            if simbolos[c[0]] == simbolos[c[1]] == 'O' and simbolos[c[2]] not in ['X', 'O']:
+                simbolos[c[2]] = simbolos[c[0]]
+                ocupado = False
+                break
+            elif simbolos[c[0]] == simbolos[c[2]] == 'O' and simbolos[c[1]] not in ['X', 'O']:
+                simbolos[c[1]] = simbolos[c[0]]
+                ocupado = False
+                break
+            elif simbolos[c[1]] == simbolos[c[2]] == 'O' and simbolos[c[0]] not in ['X', 'O']:
+                simbolos[c[0]] = simbolos[c[1]]
+                ocupado = False
+                break
+            elif simbolos[c[0]] == simbolos[c[1]] == 'X' and simbolos[c[2]] not in ['X', 'O']:
+                simbolos[c[2]] = 'O'
+                ocupado = False
+                break
+            elif simbolos[c[0]] == simbolos[c[2]] == 'X' and simbolos[c[1]] not in ['X', 'O']:
+                simbolos[c[1]] = 'O'
+                ocupado = False
+                break
+            elif simbolos[c[1]] == simbolos[c[2]] == 'X' and simbolos[c[0]] not in ['X', 'O']:
+                simbolos[c[0]] = 'O'
+                ocupado = False
+                break
+        if ocupado:
+            x = random.choice(list(simbolos.keys()))
+            if simbolos[x] not in ['X', 'O']:
+                simbolos[x] = 'O'
+                ocupado = False
+        
 def usuario(dsimbolos:dict):
     ''' Juega el usuario'''
     ocupado = True
@@ -68,6 +104,7 @@ def juego(simbolos:dict):
             ia(simbolos)
             dibuja_tablero(simbolos)
             movimientos += 1
+            gana = checa_winner(simbolos, lista_combinaciones)
             if gana is not None:
                 en_juego = False
                 continue
