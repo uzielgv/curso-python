@@ -56,8 +56,9 @@ def adivina_letra(abc:dict, palabra:str, letras_adivinadas:set, turnos:int):
         else:
             palabra_oculta += "_"
     print(f'Tienes {turnos} turnos')
-    print(f'La palabra es: {palabra}')
-    print(f'El abecedario es: {abc}')
+    abcd = ' '.join(abc.values())
+    print(f'El abecedario es: {abcd}')
+    print(f'La palabra es: {palabra_oculta}')
     letra = input('Ingrese una letra: ')
     if len(letra) != 1 or letra not in abc:
         print('Ingresa una letra válida')
@@ -82,8 +83,5 @@ if __name__ == '__main__':
     abecedario = {letra:letra for letra in string.ascii_lowercase}
     letras_adivinadas = set()
     turnos = 5
-    print(f'Tienes {turnos} turnos')
-    print(f'El abecedario es {abecedario}')
     adivina_letra(abecedario, p, letras_adivinadas, turnos)
-    print(f'Tienes {turnos} turnos')
     adivina_letra(abecedario, p, letras_adivinadas, turnos)
