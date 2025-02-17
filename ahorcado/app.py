@@ -1,7 +1,10 @@
 '''
 Programa principal del juego del ahorcado
 '''
+import os
 import string
+import unicodedata
+import argparse
 import funciones as fn
 from random import choice
 
@@ -25,5 +28,11 @@ def main(archivo_texto:str, nombre_plantilla='plantilla'):
     print(f"La palabra era: '{p}'")
 
 if __name__ == '__main__':
-    archivo = './datos/pg15532.txt'
+    parser = argparse.ArgumentParser(description='Juego del ahorcado')
+    parser.add_argument('archivo', help='Archivo de texto con palabras', default='./datos/pg15532.txt')
+    args = parser.parse_args()
+    archivo = args.archivo
+    if os.stat(archivo) == False:
+        print(f"El archivo '{archivo}' no existe")
+        exit()
     main(archivo)
