@@ -16,13 +16,13 @@ def main(archivo_texto:str, nombre_plantilla='plantilla'):
     o = 5
     abecedario = {letra:letra for letra in string.ascii_lowercase}
     letras_adivinadas = set()
-    while o > 1:
+    while o > 0:
         fn.despliega_plantilla(plantillas, o)
-        fn.adivina_letra(abecedario, p, letras_adivinadas, o)
+        o = fn.adivina_letra(abecedario, p, letras_adivinadas, o)
         if p == ''.join([letra if letra in letras_adivinadas else '_' for letra in p]):
-            print('Ganase')
+            print('Ganaste')
             break
-        o -= 1
+    print(f"La palabra era: '{p}'")
 
 if __name__ == '__main__':
     archivo = './datos/pg15532.txt'
