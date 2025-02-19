@@ -1,3 +1,4 @@
+""" Clase Sport """
 class Sport:
     """ Clase para representar un deporte """
     def __init__(self, name:str, players:int, league:str):
@@ -13,6 +14,7 @@ class Sport:
         return f"Sport: {self.name}, {self.players}, {self.league}"
     
     def __repr__(self)->str:
+        """ Representación en string de Sport """
         return f"Sport(name='{self.name}', players={self.players}, league='{self.league}')"
     
     def to_json(self)->dict:
@@ -28,3 +30,5 @@ if __name__ == "__main__":
     print(lmp)
     print(repr(lmp))
     print(lmp.to_json)
+    lmp2 = eval(repr(lmp))
+    print(lmp2)
