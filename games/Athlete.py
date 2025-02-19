@@ -7,7 +7,7 @@ class Athlete:
         return f"Athlete: {self.name}"
 
     def __repr__(self):
-        return f"Athlete({self.name})"
+        return f"Athlete('{self.name}')"
     
     def display(self):
         print(f"{self.name}")
@@ -17,3 +17,9 @@ if __name__ == "__main__":
     a.display()
     print(a)
     print(repr(a))
+    print(f"a: {id(a)}")
+    b = repr(a)
+    print(b)
+    b = eval(b)
+    print(b)
+    print(f"b: {id(b)}")
