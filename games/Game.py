@@ -9,7 +9,8 @@ class Game:
                    'NBA':[x for x in range(70, 121)], 
                    'NFL':[x for x in range(3, 50)],
                    'LMX':[x for x in range(0, 9)],
-                   'MLB':[x for x in range(0, 11)]}
+                   'MLB':[x for x in range(0, 11)],
+                   'FIFA':[x for x in range(0, 11)]}
 
     def __init__(self, A:Team, B:Team):
         ''' Constructor de la clase Game '''
