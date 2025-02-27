@@ -31,8 +31,7 @@ class Game:
     
     def __str__(self)->str:
         ''' Método para mostrar la clase como string '''
-        return f"""Game: {self.A.name:20s}: {self.score[self.A.name]:3d}
-      {self.B.name:20s}: {self.score[self.B.name]:3d}"""
+        return f"""Game: {self.A.name:20s}: {self.score[self.A.name]:3d} - {self.score[self.B.name]:3d}: {self.B.name:20s}"""
 
     def __repr__(self)->str:
         ''' Método para mostrar la clase como string '''
