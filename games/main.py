@@ -1,9 +1,10 @@
 """ Programa principal de Games """
+import json
 from Athlete import Athlete
 from Sport import Sport
 from Team import Team
 from Game import Game
-import json
+import game_logic as gl
 
 def main(archivo_torneo:str):
     """ Función principal de Games """
@@ -14,7 +15,7 @@ def main(archivo_torneo:str):
         players_mexico = ['Chicharito', 'Chucky', 'Ochoa', 'Tecatito', 'Guardado', 'Herrera', 'Layun', 'Moreno', 'Araujo', 'Oribe', 'Jimenez']
         players_espania = ['Casillas', 'Ramos', 'Pique', 'Iniesta', 'Silva', 'Isco', 'Busquets', 'Costa', 'Moreta', 'Asensio']
         players_brasil = ['Neymar', 'Coutinho', 'Marcelo', 'Casemiro', 'Alisson', 'Jesus', 'Padinho', 'Thiago', 'Silva', 'Firmino', 'Danilo']
-        players_argentina = ['Messi', 'Aguero', 'Di Maria', 'Mascherano', ]
+        players_argentina = ['Messi', 'Aguero', 'Di Maria', 'Mascherano', 'Higuain', 'Dybala', 'Otamendi', 'Romero', 'Rojo', 'Banega', 'Fazio']
         lista_mexico = [Athlete(x) for x in players_mexico]
         lista_espania = [Athlete(x) for x in players_espania]
         lista_brasil = [Athlete(x) for x in players_brasil]
@@ -41,12 +42,27 @@ def main(archivo_torneo:str):
             json.dump(torneo, f, ensure_ascii=False, indent=4)
         print(f"Se escribió el archivo {archivo_torneo} satisfactoriamente.")
     for juego in torneo:
-        A = Team(juego['A']['name'], Sport(juego['A']['sport']['name'], juego['A']['sport']['players'], juego['A']['sport']['league']), [Athlete(x['name']) for x in juego['A']['players']])
-        B = Team(juego['B']['name'], Sport(juego['B']['sport']['name'], juego['B']['sport']['players'], juego['B']['sport']['league']), [Athlete(x['name']) for x in juego['B']['players']])
+        A = Team(juego['A']['name'], 
+                 Sport(juego['A']['sport']['name'], 
+                       juego['A']['sport']['players'], 
+                       juego['A']['sport']['league']), 
+                 [Athlete(x['name']) for x in juego['A']['players']])
+        B = Team(juego['B']['name'],
+                 Sport(juego['B']['sport']['name'], 
+                       juego['B']['sport']['players'], 
+                       juego['B']['sport']['league']), 
+                [Athlete(x['name']) for x in juego['B']['players']])
         game = Game(A, B)
         game.play()
         print(game)
+        juego['score'] = game.score
         print("----------------")
+    # Calcular el tablero de puntuación
+    for juego in torneo:
+        print(juego['score'])
+    # torneo = gl.json_to_tournament(torneo)
+    tablero = gl.scoring(torneo)
+    gl.display_tablero(tablero)
 
 if __name__ == "__main__":
     archivo_torneo = ""
