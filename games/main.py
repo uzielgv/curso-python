@@ -18,9 +18,6 @@ def main(archivo_torneo:str):
             torneo = json.load(f)
     gl.play_game(torneo)
     # Calcular el tablero de puntuación
-    # for juego in torneo:
-    #    print(juego['score'])
-    # torneo = gl.json_to_tournament(torneo)
     tablero = gl.scoring(torneo)
     gl.display_tablero(tablero)
 
