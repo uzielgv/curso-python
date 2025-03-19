@@ -19,6 +19,9 @@ def busca_en_diccionario(diccionario:dict, palabra:str)->list:
             lista.append(libro)
     return lista
 
+def libros_empiezan_con(lista:list, letra:str):
+    return [x for x in lista if x['title'].lower().startswith(letra.lower())]
+
 if __name__ == "__main__":
     archivo_csv = 'booklist2000.csv'
     lista_libros = lee_archivo_csv(archivo_csv)
