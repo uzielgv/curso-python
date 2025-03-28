@@ -133,10 +133,25 @@ class SistemaCine:
         ids_peliculas = [rel.id_pelicula for rel in self.relaciones.values() if rel.id_estrella == id_estrella]
         return [self.peliculas[id_pelicula] for id_pelicula in ids_peliculas]
     
+    def obtener_personajes_por_actor_en_pelicula(self, id_estrella):
+        ''' Devuelve el personaje que interpreta un actor en una película '''
+        personaje_pelicula_actor = {}
+        for rel in self.relaciones.values():
+            if rel.id_estrella == id_estrella:
+                personaje_pelicula_actor[rel.id_pelicula] = rel.personaje
+        return personaje_pelicula_actor
+    
     def obtener_actores_por_pelicula(self, id_pelicula):
         ''' Devuelve  '''
         ids_actores = [rel.id_estrella for rel in self.relaciones.values() if rel.id_pelicula == id_pelicula]
         return [self.actores[id_estrella] for id_estrella in ids_actores]
+    
+    def obtener_personajes_en_pelicula(self, id_pelicula):
+        actor_personaje_pelicula = {}
+        for rel in self.relaciones.values():
+            if rel.id_pelicula == id_pelicula:
+                actor_personaje_pelicula[self.actores[rel.id_estrella].id_estrella] = rel.personaje
+        return actor_personaje_pelicula
     
     def login(self, username, password):
         if username in self.usuarios:
@@ -206,12 +221,14 @@ if __name__ == "__main__":
     print(exito)
     if exito:
         print(sistema.usuario_actual.username)
-        sistema.agregar_pelicula('La vida es bella', '1997-12-20', 'https://www.imdb.com/title/tt0118799/mediaviewer/rm4282021376')
-        sistema.agregar_relacion(69, 36, 'Rita')
-        sistema.agregar_usuario('uzielgv', 'Javier Uziel Gonzalez Valle', 'a223213691@unison.mx', '12345')
-        sistema.guardar_csv(archivo_peliculas, sistema.peliculas)
-        sistema.guardar_csv(archivo_relaciones, sistema.relaciones)
-        sistema.guardar_csv(archivo_usuarios, sistema.usuarios)
+        #sistema.agregar_pelicula('La vida es bella', '1997-12-20', 'https://www.imdb.com/title/tt0118799/mediaviewer/rm4282021376')
+        #sistema.agregar_relacion(69, 36, 'Rita')
+        #sistema.agregar_usuario('uzielgv', 'Javier Uziel Gonzalez Valle', 'a223213691@unison.mx', '12345')
+        #sistema.guardar_csv(archivo_peliculas, sistema.peliculas)
+        #sistema.guardar_csv(archivo_relaciones, sistema.relaciones)
+        #sistema.guardar_csv(archivo_usuarios, sistema.usuarios)
+        dict_personajes = sistema.obtener_personajes_en_pelicula(1)
+        print(dict_personajes)
     else:
         print(f"Usuario o contraseña incorrectos...")
     
