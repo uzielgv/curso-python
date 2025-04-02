@@ -222,7 +222,7 @@ if __name__ == "__main__":
     if exito:
         print(sistema.usuario_actual.username)
         #sistema.agregar_pelicula('La vida es bella', '1997-12-20', 'https://www.imdb.com/title/tt0118799/mediaviewer/rm4282021376')
-        #sistema.agregar_relacion(69, 36, 'Rita')
+        #sistema.agregar_relacion(69, 36, 'Rita').
         #sistema.agregar_usuario('uzielgv', 'Javier Uziel Gonzalez Valle', 'a223213691@unison.mx', '12345')
         #sistema.guardar_csv(archivo_peliculas, sistema.peliculas)
         #sistema.guardar_csv(archivo_relaciones, sistema.relaciones)

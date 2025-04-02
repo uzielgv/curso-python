@@ -26,14 +26,12 @@ def actores():
     actores = sistema.actores.values()
     return render_template('actores.html', actores=actores)
 
-@app.route('/actor/<id_estrella>', methods=['GET'])
-def actor(id_estrella:str):
-    ''' Muestra información sobre un cierto actor '''
-    int_id = int(id_estrella)
-    actor = sistema.actores[int_id]
-    peliculas = sistema.obtener_peliculas_por_actor(int_id)
-    personajes = sistema.obtener_personajes_por_actor_en_pelicula(int_id)
-    return render_template('actor.html', actor=actor, peliculas=peliculas, personajes=personajes)
+@app.route('/actor/<int:id_actor>')
+def actor(id_actor):
+    ''' Muestra la información de un actor '''
+    actor = sistema.actores[id_actor]
+    personajes = sistema.obtener_personajes_por_estrella(id_actor)
+    return render_template('actor.html', actor=actor, lista_peliculas=personajes)
 
 @app.route('/peliculas')
 def peliculas():
@@ -41,14 +39,12 @@ def peliculas():
     peliculas = sistema.peliculas.values()
     return render_template('peliculas.html', peliculas=peliculas)
 
-@app.route('/pelicula/<id_pelicula>', methods=['GET'])
-def pelicula(id_pelicula:str):
-    ''' Muestra información sobre una película '''
-    int_id = int(id_pelicula)
-    pelicula = sistema.peliculas[int_id]
-    actores = sistema.obtener_actores_por_pelicula(int_id)
-    personajes = sistema.obtener_personajes_en_pelicula(int_id)
-    return render_template('pelicula.html', pelicula=pelicula, actores=actores, personajes=personajes)
+@app.route('/pelicula/<int:id_pelicula>')
+def pelicula(id_pelicula):
+    ''' Muestra la información de una película '''
+    pelicula = sistema.peliculas[id_pelicula]
+    personajes = sistema.obtener_personajes_por_pelicula(id_pelicula)
+    return render_template('pelicula.html', pelicula=pelicula, lista_actores=personajes)
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Movie database - {{ pelicula.titulo_pelicula }}{% endblock %}
+{% block title %}Movie database - {{pelicula.titulo_pelicula}}{% endblock %}
 {% block body %}
 <body>
     <div class="container mt-5">
@@ -12,24 +12,22 @@
                     </div>
                     <div class="col-md-8">
                         
-                        <p class="card-text"><b>Fecha de lanzamiento:</b> {{ pelicula.fecha_lanzamiento }}</p>
-                        <h5 class="card-subtitle mt-3">Elenco</h5>
+                        <p class="card-text"><b>Fecha de publicación:</b> {{ pelicula.fecha_lanzamiento }}</p>
+                        <h5 class="card-subtitle mt-3">Actores</h5>
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>Imagen</th>
-                                    <th>Nombre</th>
+                                    <th>Actor</th>
                                     <th>Personaje</th>
-                                    <th>Fecha de nacimiento</th>
+                                    <th>Imagen</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for actor in actores %}
+                                {% for actor in lista_actores %}
                                 <tr>
-                                    <td><img src="{{ actor.url_imagen}}" alt="{{ actor.nombre }}" height="200"></td>
-                                    <td><a href="/actor/{{ actor.id_estrella }}">{{ actor.nombre }}</a></td>
-                                    <td>{{ personajes[actor.id_estrella] }}</td>
-                                    <td>{{ actor.fecha_nacimiento }}</td>
+                                    <td><a href="/actor/{{ actor.actor.id_estrella }}">{{ actor.actor.nombre }}</a></td>
+                                    <td>{{ actor.personaje }}</td>
+                                    <td><a href="/actor/{{ actor.actor.id_estrella }}"><img src="{{ actor.actor.url_imagen }}" alt="{{ actor.actor.nombre }}" style="width:100px;height:100px;"></a></td>
                                 </tr>
                                 {% endfor %}
                             </tbody>

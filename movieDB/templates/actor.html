@@ -18,19 +18,19 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>Personaje</th>
                                     <th>Película</th>
+                                    <th>Personaje</th>
                                     <th>Fecha de lanzamiento</th>
                                     <th>Póster</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for pelicula in peliculas %}
+                                {% for pelicula in lista_peliculas %}
                                 <tr>
-                                    <td>{{ personajes[pelicula.id_pelicula] }}</td>
-                                    <td><a href="/pelicula/{{ pelicula.id_pelicula }}">{{ pelicula.titulo_pelicula }}</a></td>
-                                    <td>{{ pelicula.fecha_lanzamiento }}</td>
-                                    <td><a href="/pelicula/{{ pelicula.id_pelicula }}"><img src="{{ pelicula.url_poster }}" alt="{{ pelicula.titulo_pelicula }}" style="width:100px;height:100px;"></a></td>
+                                    <td><a href="/pelicula/{{ pelicula.pelicula.id_pelicula }}">{{ pelicula.pelicula.titulo_pelicula }}</a></td>
+                                    <td>{{ pelicula.personaje }}</td>
+                                    <td>{{ pelicula.pelicula.fecha_lanzamiento }}</td>
+                                    <td><a href="/pelicula/{{ pelicula.pelicula.id_pelicula }}"><img src="{{ pelicula.pelicula.url_poster }}" alt="{{ pelicula.pelicula.titulo_pelicula }}" style="width:100px;height:100px;"></a></td>
                                 </tr>
                                 {% endfor %}
                             </tbody>
