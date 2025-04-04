@@ -5,6 +5,7 @@ import random
 import movie_classes as mc
 
 app = Flask(__name__)
+app.secret_key = os.urandom(24) # Clave secreta para la sesión 
 sistema = mc.SistemaCine()
 archivo_actores = "datos/movies_db - actores.csv"
 archivo_peliculas = "datos/movies_db - peliculas.csv"
@@ -45,6 +46,23 @@ def pelicula(id_pelicula):
     pelicula = sistema.peliculas[id_pelicula]
     personajes = sistema.obtener_personajes_por_pelicula(id_pelicula)
     return render_template('pelicula.html', pelicula=pelicula, lista_actores=personajes)
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    ''' Muestra el formulario de login '''
+    session = {}
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        exito = sistema.login(username, password)
+        if exito:
+            session['logged_in'] = True
+            session['username'] = sistema.usuario_actual.nombre_completo
+            return redirect(url_for('index'))
+        else:
+            error = 'Usuario o contraseña incorrectos...'
+            return render_template('login.html')
+    return render_template('login.html')
 
 if __name__ == "__main__":
     app.run(debug=True)
