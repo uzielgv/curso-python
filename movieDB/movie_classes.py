@@ -132,31 +132,34 @@ class SistemaCine:
         ''' Devuelve una lista de películas en las que ha participado un actor '''
         ids_peliculas = [rel.id_pelicula for rel in self.relaciones.values() if rel.id_estrella == id_estrella]
         return [self.peliculas[id_pelicula] for id_pelicula in ids_peliculas]
-    
-    def obtener_personajes_por_actor_en_pelicula(self, id_estrella):
-        ''' Devuelve el personaje que interpreta un actor en una película '''
-        personaje_pelicula_actor = {}
-        for rel in self.relaciones.values():
-            if rel.id_estrella == id_estrella:
-                personaje_pelicula_actor[rel.id_pelicula] = rel.personaje
-        return personaje_pelicula_actor
-    
+
     def obtener_actores_por_pelicula(self, id_pelicula):
         ''' Devuelve  '''
         ids_actores = [rel.id_estrella for rel in self.relaciones.values() if rel.id_pelicula == id_pelicula]
         return [self.actores[id_estrella] for id_estrella in ids_actores]
+
+    def obtener_personajes_por_estrella(self, id_estrella):
+        personajes = []
+        for rel in self.relaciones.values():
+            if rel.id_estrella == id_estrella:
+                pelicula = self.peliculas.get(rel.id_pelicula)
+                if pelicula:
+                    personajes.append({"personaje": rel.personaje, "pelicula": pelicula})
+        return personajes
     
-    def obtener_personajes_en_pelicula(self, id_pelicula):
-        actor_personaje_pelicula = {}
+    def obtener_personajes_por_pelicula(self, id_pelicula):
+        personajes = []
         for rel in self.relaciones.values():
             if rel.id_pelicula == id_pelicula:
-                actor_personaje_pelicula[self.actores[rel.id_estrella].id_estrella] = rel.personaje
-        return actor_personaje_pelicula
+                actor = self.actores.get(rel.id_estrella)
+                if actor:
+                    personajes.append({"personaje": rel.personaje, "actor": actor})
+        return personajes
     
     def login(self, username, password):
         if username in self.usuarios:
             user = self.usuarios[username]
-            print(f"{u.password}, {password}")
+            print(f"{user.password}, {password}")
             if user.hash_string(password) == user.password:
                 self.usuario_actual = user
                 return True
