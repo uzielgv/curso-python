@@ -86,12 +86,11 @@ def agregar_relacion():
             sorted_peliculas = sorted(peliculas_list, key=lambda x: x['titulo'])
         return render_template('agregar_relacion.html', actores=sorted_actores, peliculas=sorted_peliculas)
     if request.method == 'POST':
-        relaciones_csv = "datos/movies_db - relacion.csv"
         id_actor = int(request.form['actorSelect'])
         id_pelicula = int(request.form['movieSelect'])
         personaje = request.form['character']
         sistema.agregar_relacion(id_pelicula, id_actor, personaje)
-        sistema.guardar_csv(relaciones_csv, sistema.relaciones)
+        sistema.guardar_csv(archivo_relaciones, sistema.relaciones)
         flash('Relación agregada correctamente', 'success')
         return redirect(url_for('actor', id_actor=id_actor))
     
@@ -103,13 +102,28 @@ def agregar_pelicula():
     if request.method == 'GET':
         return render_template('agregar_pelicula.html')
     if request.method == 'POST':
-        peliculas_csv = "datos/movies_db - peliculas.csv"
         titulo = request.form.get('titulo')
         fecha_lanzamiento = request.form.get('fecha_lanzamiento')
         url_poster = request.form.get('url_poster')
         sistema.agregar_pelicula(titulo,fecha_lanzamiento,url_poster)
-        sistema.guardar_csv(peliculas_csv, sistema.peliculas)
+        sistema.guardar_csv(archivo_peliculas, sistema.peliculas)
         return redirect(url_for('peliculas'))
+
+@app.route('/agregar_actor', methods=['GET', 'POST'])
+def agregar_actor():
+    if sistema.usuario_actual is None:
+        flash('Debes iniciar sesión para agregar un actor o actriz', 'warning')
+        return redirect(url_for('login'))
+    if request.method == 'GET':
+        return render_template('agregar_actor.html')
+    if request.method == 'POST':
+        nombre = request.form.get('nombre')
+        fecha_nacimiento = request.form.get('fecha_nacimiento')
+        ciudad_nacimiento = request.form.get('ciudad_nacimiento')
+        url_imagen = request.form.get('url_imagen')
+        sistema.agregar_actor(nombre, fecha_nacimiento, ciudad_nacimiento, url_imagen)
+        sistema.guardar_csv(archivo_actores, sistema.actores)
+        return redirect(url_for('actores'))
 
 if __name__ == "__main__":
     app.run(debug=True)

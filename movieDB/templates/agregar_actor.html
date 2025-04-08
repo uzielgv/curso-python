@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Movie database - Agregar película{% endblock %}
+{% block body %}
+<body>
+  <div class="container mt-5">
+    <form method="POST">
+      <div class="mb-3">
+        <label for="name" class="form-label">Nombre:</label>
+        <input type="text" class="form-control" id="nombre" name="nombre" required>
+      </div>
+      <div class="mb-3">
+        <label for="dob" class="form-label">Fecha de nacimiento:</label>
+        <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" required>
+      </div>
+      <div class="mb-3">
+        <label for="birth_city" class="form-label">Ciudad de nacimiento:</label>
+        <input type="text" class="form-control" id="ciudad_nacimiento" name="ciudad_nacimiento" required>
+      </div>
+      <div class="mb-3">
+        <label for="image_url" class="form-label">Imagen URL:</label>
+        <input type="url" class="form-control" id="url_imagen" name="url_imagen" required>
+      </div>
+      <div class="mb-3">
+        <img id="image_preview" src="" alt="Image Preview" style="max-width: 200px; display: none;">
+      </div>
+      <button type="submit" class="btn btn-primary">Agregar actor/actriz</button>
+    </form>
+  </div>
+  <script>
+    const posterUrlInput = document.getElementById('url_imagen');
+    const posterPreview = document.getElementById('image_preview');
+
+    posterUrlInput.addEventListener('input', function() {
+      const url = posterUrlInput.value;
+      if (url) {
+        posterPreview.src = url;
+        posterPreview.style.display = 'block';
+      } else {
+        posterPreview.src = '';
+        posterPreview.style.display = 'none';
+      }
+    });
+  </script>
+</body>
+{% endblock %}
